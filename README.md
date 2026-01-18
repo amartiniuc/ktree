@@ -2,6 +2,8 @@
 
 A full-screen CLI application for browsing Kubernetes clusters using a tree-based interface with vim-style navigation.
 
+> **Note**: Binaries are automatically built for Linux, macOS, and Windows on every merge to main. Check the [Actions](https://github.com/amartiniuc/ktree/actions) tab to download the latest builds.
+
 ## Screenshots
 
 ### Main Application
