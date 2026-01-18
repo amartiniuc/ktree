@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ktree"
+version = "0.1.0"
+description = "A full-screen CLI application for browsing Kubernetes clusters using a tree-based interface with vim-style navigation"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "KTree Contributors"}
+]
+keywords = ["kubernetes", "k8s", "cli", "tui", "browser", "textual", "vim"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: System :: Systems Administration",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "kubernetes",
+    "textual",
+    "rich",
+]
+
+[project.urls]
+Homepage = "https://github.com/amartiniuc/ktree"
+Documentation = "https://github.com/amartiniuc/ktree#readme"
+Repository = "https://github.com/amartiniuc/ktree"
+Issues = "https://github.com/amartiniuc/ktree/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "black",
+    "ruff",
+]
+
+[project.scripts]
+ktree = "ktree.main:run"
+
+[tool.hatch.build.targets.wheel]
+packages = ["ktree"]
