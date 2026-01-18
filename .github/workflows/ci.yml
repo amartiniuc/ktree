@@ -42,6 +42,8 @@ jobs:
         pytest
 
   build-binaries:
+    # Only build binaries when code is merged into main (push event, not PR events)
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -84,7 +86,19 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ktree-${{ matrix.platform }}-${{ matrix.arch }}
+        name: ktree-${{ matrix.platform }}-${{ matrix.arch }}-${{ github.sha }}
         path: dist/${{ matrix.platform }}-${{ matrix.arch }}/
-        retention-days: 7
+        retention-days: 30
+    
+    - name: Create build summary
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        echo "## 🚀 Binaries Built Successfully" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "Binaries have been built for all platforms:" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Linux x86_64" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ macOS ARM64" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Windows x86_64" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "Download artifacts from the workflow run to get the binaries." >> $GITHUB_STEP_SUMMARY
 
